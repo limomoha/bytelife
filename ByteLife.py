@@ -1088,7 +1088,7 @@ class LifeEngine:
                 self.stock *= 0.0001
             if random.random() > 0.1:
                 name = self.namess()
-                print("You met someone, they're name is " + name)
+                print("You met someone, their name is " + name)
                 if friend:
                     print("They asked to be your friend, you kindly accepted.")
                     if random.random() > 0.4:
@@ -2095,7 +2095,7 @@ class LifeEngineNone:
                 self.stock *= 0.00001
             if random.random() > 0.1:
                 name = self.namess()
-                print("You met someone, they're name is " + name)
+                print("You met someone, their name is " + name)
                 if friend:
                     print("They asked to be your friend, you kindly accepted.")
                     if random.random() > 0.5:
