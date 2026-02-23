@@ -24,16 +24,12 @@ from ByteLife import LifeEngine
 # Initialize
 player = LifeEngine("random bob mcdonald") # random bob mcdonald is the special trigger for a random name
 
-# Gambling logic
-player.gamble(5000) 
+# Gambling logic, You cannot choose the amount
+player.gamble() 
 
 # Relationship repair
 player.friend() # Meet "Alex"
 player.bribe_money("Alex", 1000) # Force them to like you
-
-# The hidden data dump
-stats = player.get_stats()
-print(f"Current Happiness: {stats['happiness']}")
 
 # Education/Work details
 player.get_college()
