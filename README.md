@@ -17,7 +17,7 @@ A Simple game I thought of, where you have to code a virtual life or use the vis
    pip install pygame pyperclip
 ```
 *(Note: If you are only using the coding version/LifeEngine/LifeEngineNone, no pip install is required.)*
-
+# Coding Version:
 ```python
 from ByteLife import LifeEngine
 
@@ -52,3 +52,5 @@ player.perform_action("emergency_room")
 ```
 
 There are more functions, you can check them by reading directly through the long code
+
+### smmath.py is the visual version, do python3 smmath.py to run it
