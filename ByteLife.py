@@ -492,7 +492,39 @@ class LifeEngine:
         # 7. Failure Case (The hitman just fails or steals your deposit)
         else:
             print("The hitman failed the job and ran off with your $15,000 deposit.")
-    
+
+    def become_child(self, child_name):
+        # 1. Standardize name for lookup
+        child_name = child_name.lower()
+        child_stats = self.dictionary.get(child_name)
+
+        # 2. Check if player is actually dead and child exists
+        if not self.is_alive:
+            if child_stats and child_stats.get("child"):
+                # Calculate inheritance before clearing the dictionary
+                # We'll give the child 70% of the parent's wealth after "estate taxes"
+                inheritance = self.money * 0.70
+                
+                # 3. Transfer attributes
+                self.name = child_name.title()
+                self.money = inheritance
+                self.age = 18  # Restart as a young adult
+                self.health = 100
+                self.happiness = child_stats.get("rel_health", 50)
+                self.is_alive = True # Bring the engine back to life!
+                
+                # 4. Wipe the old life's contacts (except for the new life)
+                # Or you could keep them as "Siblings/Friends" if you're feeling fancy
+                self.dictionary = {} 
+                
+                print(f"\n[LEGACY] You have become your child, {self.name}.")
+                print(f"You inherited ${inheritance:,.2f} from your previous life.")
+                print(f"Welcome {self.name}. You are {self.age} and have ${self.money:,.2f} dollars!")
+            else:
+                print(f"\n[!] {child_name} is not in your records or isn't your child.")
+        else:
+            print("\n[!] You are still alive! You cannot inhabit your child's body yet.")
+
     def kill_any(self):
         if self.is_dead(): return
         if random.random() < 0.2:
