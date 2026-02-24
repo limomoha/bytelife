@@ -507,7 +507,7 @@ class LifeEngine:
                 
                 # 3. Transfer attributes
                 self.name = child_name.title()
-                self.money = inheritance = 1000
+                self.money = inheritance + 1000
                 oldage=age
                 self.age = 18 + (65-child_stats.get("expectancy", 0)+self.age)  # Restart with likely money
                 self.health = 100
