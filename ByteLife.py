@@ -507,15 +507,17 @@ class LifeEngine:
                 
                 # 3. Transfer attributes
                 self.name = child_name.title()
-                self.money = inheritance
-                self.age = 18  # Restart as a young adult
+                self.money = inheritance = 1000
+                self.age = 18 + (65-child_stats.get("expectancy", 0)+self.age)  # Restart with likely money
                 self.health = 100
                 self.happiness = child_stats.get("rel_health", 50)
                 self.is_alive = True # Bring the engine back to life!
                 
-                # 4. Wipe the old life's contacts (except for the new life)
-                # Or you could keep them as "Siblings/Friends" if you're feeling fancy
-                self.dictionary = {} 
+                for data in self.dictionary.values():
+                    data["pays"] = random.randint(100,1000)
+                    data["takes"] = 0
+                    data["expectancy"] -= self.age
+                    data["rel_health"] = math.abs(data["rel_health"]+random.randint(-10,10))
                 
                 print(f"\n[LEGACY] You have become your child, {self.name}.")
                 print(f"You inherited ${inheritance:,.2f} from your previous life.")
