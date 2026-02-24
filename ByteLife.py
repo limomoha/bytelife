@@ -521,6 +521,8 @@ class LifeEngine:
                         self.dictionary[name]["rel_health"] = math.abs(data["rel_health"]+random.randint(-10,10))
                         if name == "Mom":
                             del self.dictionary[name]
+                        if self.dictionary[name].get("child",None):
+                            del self.dictionary[name]
                 self.isgirl = random.choice([True,False])
                 
                 print(f"\n[LEGACY] You have become your child, {self.name}.")
@@ -1180,7 +1182,7 @@ class LifeEngine:
                     self.gambled -= 1
                 self.rested = False
                 for i in list(self.dictionary.keys()):
-                    if random.random() < 0.05:
+                    if random.random() < 0.02:
                         del self.dictionary[i]
                         continue
                     # Relationships lose 5 points every year automatically
