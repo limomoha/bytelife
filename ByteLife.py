@@ -508,16 +508,20 @@ class LifeEngine:
                 # 3. Transfer attributes
                 self.name = child_name.title()
                 self.money = inheritance = 1000
+                oldage=age
                 self.age = 18 + (65-child_stats.get("expectancy", 0)+self.age)  # Restart with likely money
                 self.health = 100
                 self.happiness = child_stats.get("rel_health", 50)
                 self.is_alive = True # Bring the engine back to life!
-                
-                for data in self.dictionary.values():
-                    data["pays"] = random.randint(100,1000)
-                    data["takes"] = 0
-                    data["expectancy"] -= self.age
-                    data["rel_health"] = math.abs(data["rel_health"]+random.randint(-10,10))
+                for name in list(self.dictionary.keys()):
+
+                        self.dictionary[name]["pays"] = random.randint(100,1000)
+                        self.dictionary[name]["takes"] = 0
+                        self.dictionary[name]["expectancy"] += self.age-oldage
+                        self.dictionary[name]["rel_health"] = math.abs(data["rel_health"]+random.randint(-10,10))
+                        if name == "Mom":
+                            del self.dictionary[name]
+                self.isgirl = random.choice([True,False])
                 
                 print(f"\n[LEGACY] You have become your child, {self.name}.")
                 print(f"You inherited ${inheritance:,.2f} from your previous life.")
@@ -1176,6 +1180,9 @@ class LifeEngine:
                     self.gambled -= 1
                 self.rested = False
                 for i in list(self.dictionary.keys()):
+                    if random.random() < 0.05:
+                        del self.dictionary[i]
+                        continue
                     # Relationships lose 5 points every year automatically
                     self.dictionary[i]["rel_health"] -= random.randint(3,8)
                     if self.dictionary[i]["takes"]-self.dictionary[i]["pays"] > 300:
