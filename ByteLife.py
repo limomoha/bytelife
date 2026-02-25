@@ -228,6 +228,7 @@ class LifeEngine:
 
     def steal(self):
         if self.is_dead(): return
+        print("You tried stealing")
         if random.randint(0,2+int(math.log(self.stolenskill+1,2))) != 1:
             self.money += random.randint(300,9000)
             print(f"\nYou stole money from a random person")
@@ -500,7 +501,10 @@ class LifeEngine:
 
         # 2. Check if player is actually dead and child exists
         if not self.is_alive:
-            if child_stats and child_stats.get("child"):
+            if child_stats and child_stats.get("child") and (65-child_stats.get("expectancy", 0)+self.age) >= 18:
+                if (65-child_stats.get("expectancy", 0)+self.age) < 18:
+                    print(f"\n[!] Your child is too young, get them to 18 first")
+                    return
                 # Calculate inheritance before clearing the dictionary
                 # We'll give the child 70% of the parent's wealth after "estate taxes"
                 inheritance = self.money * 0.70
@@ -509,7 +513,7 @@ class LifeEngine:
                 self.name = child_name.title()
                 self.money = inheritance + 1000
                 oldage=age
-                self.age = 18 + (65-child_stats.get("expectancy", 0)+self.age)  # Restart with likely money
+                self.age = (65-child_stats.get("expectancy", 0)+self.age)  # Restart with likely age
                 self.health = 100
                 self.happiness = child_stats.get("rel_health", 50)
                 self.is_alive = True # Bring the engine back to life!
@@ -718,6 +722,7 @@ class LifeEngine:
                 self.actions_taken -= 1
                 return
             print("Procedure failed")
+            return
             
         self.actions_taken += 1
         
@@ -926,7 +931,7 @@ class LifeEngine:
                     self.dictionary[name] = {
                         "rel_health": 60 if self.gendergirl else 40,
                         "pays": 0,
-                        "takes": random.randint(150000, 190000),
+                        "takes": random.randint(15000, 19000),
                         "expectancy": 65 + self.age,
                         "unfriend_age": self.age + random.randint(16, 30),
                         "child": True
@@ -1505,6 +1510,7 @@ class LifeEngineNone:
 
     def steal(self):
         if self.is_dead(): return
+        print("You tried stealing")
         if random.randint(0,2+int(math.log(self.stolenskill+1,2))) != 1:
             self.money += random.randint(300,9000)
             self.printed += (f"\nYou stole money from a random person")
@@ -2104,7 +2110,7 @@ class LifeEngineNone:
                 self.stock *= 1000
             if random.random() < 0.1:
                 self.stock *= 0.00001
-            if random.random() > 0.1:
+            if random.random() < 0.1:
                 name = self.namess()
                 print("You met someone, their name is " + name)
                 if friend:
