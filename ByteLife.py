@@ -1099,7 +1099,7 @@ class LifeEngine:
                 self.stock *= 500
             if random.random() < 0.02:
                 self.stock *= 0.0001
-            if random.random() > 0.1:
+            if random.random() < 0.1:
                 name = self.namess()
                 print("You met someone, their name is " + name)
                 if friend:
